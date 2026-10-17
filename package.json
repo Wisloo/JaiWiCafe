@@ -1,0 +1,56 @@
+{
+  "name": "jaiwicafe",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "main": "electron/main.js",
+  "author": "JaiWiCafe",
+  "description": "JaiWiCafe — small-batch roasted coffee, brewed with aloha.",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "images:download": "node scripts/download-menu-images.mjs",
+    "fonts:download": "node scripts/download-fonts.mjs",
+    "assets:download": "npm run images:download && npm run fonts:download",
+    "electron": "electron .",
+    "electron:dev": "concurrently -k -s first \"vite\" \"wait-on tcp:5173 && electron .\"",
+    "electron:build": "npm run build && electron-builder --win"
+  },
+  "dependencies": {
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.1.14",
+    "@vitejs/plugin-react": "^5.0.4",
+    "concurrently": "^9.1.2",
+    "electron": "^33.2.0",
+    "electron-builder": "^25.1.8",
+    "tailwindcss": "^4.1.14",
+    "vite": "^7.1.9",
+    "wait-on": "^8.0.1"
+  },
+  "build": {
+    "appId": "com.jaiwicafe.app",
+    "productName": "JaiWiCafe",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "electron/**/*"
+    ],
+    "win": {
+      "target": [
+        "nsis"
+      ],
+      "icon": "build/icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "shortcutName": "JaiWiCafe"
+    }
+  }
+}
