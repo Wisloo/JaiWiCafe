@@ -1,5 +1,13 @@
 import { useEffect, useState } from "react";
-import { CoffeeIcon, ClockIcon, HistoryIcon, SettingsIcon } from "../icons.jsx";
+import {
+  CoffeeIcon,
+  ClockIcon,
+  HistoryIcon,
+  SettingsIcon,
+  FullscreenIcon,
+  ExitFullscreenIcon,
+} from "../icons.jsx";
+import { useFullScreen } from "../../utils/useFullScreen.js";
 
 function useClock() {
   const [now, setNow] = useState(() => new Date());
@@ -18,6 +26,7 @@ export default function PosHeader({
   onOpenSettings,
 }) {
   const now = useClock();
+  const { fullScreen, toggle, supported: canToggleFullScreen } = useFullScreen();
 
   return (
     <header className="no-print sticky top-0 z-30 bg-roast/95 text-cream backdrop-blur-md">
